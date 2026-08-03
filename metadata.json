@@ -1,0 +1,6 @@
+{
+  "name": "Drive Project Workspace",
+  "description": "Enterprise SaaS Platform with Multilingual support, Live Class AI Subtitles, Teacher White Label, Dual Wallet, Share Pool Dividends, Referral Network Tree, and Google Drive Workspace integration",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
