@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with wallet, shares, and affiliate info",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "instructor", "student"] },
+        "walletBalance": { "type": "number" },
+        "shares": { "type": "number" },
+        "parentId": { "type": "string", "description": "UID of the affiliate parent" },
+        "totalPurchases": { "type": "number" },
+        "downlineCount": { "type": "number" },
+        "customSubdomain": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "A package purchase transaction",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "shares": { "type": "number" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["userId", "amount", "shares", "timestamp"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Purchase history"
+    }
+  }
+}

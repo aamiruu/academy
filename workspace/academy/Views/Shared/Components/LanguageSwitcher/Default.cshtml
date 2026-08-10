@@ -1,0 +1,23 @@
+@model academy.Modules.Multilingual.ViewModels.LanguageSwitcherViewModel
+
+<div class="relative group inline-block">
+    <button type="button" class="hover:text-orange-500 transition-colors flex items-center gap-1 font-black text-sm text-slate-600 cursor-pointer py-4">
+        <i class="bi bi-globe text-lg"></i>
+        @Model.ActiveLanguages.FirstOrDefault(x => x.Code == Model.CurrentLanguageCode)?.DisplayName
+        <i class="bi bi-chevron-down text-[10px]"></i>
+    </button>
+    <div class="absolute left-0 top-[85%] pt-1 w-40 hidden group-hover:block z-50">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden p-2">
+            @foreach (var lang in Model.ActiveLanguages)
+            {
+                <form action="/api/language/set-language" method="post" class="m-0 p-0">
+                    <input type="hidden" name="culture" value="@lang.Code" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                    <button type="submit" class="w-full text-right flex items-center gap-2 px-4 py-2.5 text-xs font-black text-slate-700 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-all @(lang.Code == Model.CurrentLanguageCode ? "bg-orange-50 text-orange-600" : "")">
+                        @lang.DisplayName
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

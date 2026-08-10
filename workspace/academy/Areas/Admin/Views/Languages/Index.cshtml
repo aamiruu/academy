@@ -1,0 +1,80 @@
+@model IEnumerable<academy.Modules.Multilingual.Entities.Language>
+@{
+    ViewData["Title"] = "مدیریت زبان‌ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-blue-500 rounded-full"></div>
+            <h2 class="text-xl font-black text-slate-800">مدیریت زبان‌های سیستم</h2>
+        </div>
+        <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2">
+            <i class="bi bi-plus-lg text-lg"></i> ثبت زبان جدید
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-right">
+            <thead>
+                <tr class="text-slate-400 border-b border-slate-100 text-sm">
+                    <th class="pb-4 font-bold">شناسه</th>
+                    <th class="pb-4 font-bold">کد زبان</th>
+                    <th class="pb-4 font-bold">نام نمایشی</th>
+                    <th class="pb-4 font-bold">جهت متن</th>
+                    <th class="pb-4 font-bold">وضعیت</th>
+                    <th class="pb-4 font-bold w-32">عملیات</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm font-bold text-slate-700">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                            <td class="py-4 text-slate-400 font-mono">@item.Id</td>
+                            <td class="py-4 text-slate-800 text-base" dir="ltr">@item.Code</td>
+                            <td class="py-4 font-black text-slate-800 text-base">
+                                @item.DisplayName
+                                @if (item.IsDefault)
+                                {
+                                    <span class="bg-emerald-100 text-emerald-600 px-2 py-1 rounded text-[10px] ml-2">پیش‌فرض</span>
+                                }
+                            </td>
+                            <td class="py-4">@item.Direction.ToString()</td>
+                            <td class="py-4">
+                                @if (item.IsActive)
+                                {
+                                    <span class="text-emerald-500 flex items-center gap-1"><i class="bi bi-check-circle-fill"></i> فعال</span>
+                                }
+                                else
+                                {
+                                    <span class="text-slate-400 flex items-center gap-1"><i class="bi bi-circle-fill"></i> غیرفعال</span>
+                                }
+                            </td>
+                            <td class="py-4 flex items-center gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="bg-amber-50 hover:bg-amber-100 text-amber-600 w-9 h-9 rounded-lg flex items-center justify-center transition-colors" title="ویرایش">
+                                    <i class="bi bi-pencil-square text-lg"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="bg-rose-50 hover:bg-rose-100 text-rose-600 w-9 h-9 rounded-lg flex items-center justify-center transition-colors" title="حذف" onclick="return confirm('آیا از حذف این زبان مطمئن هستید؟');">
+                                    <i class="bi bi-trash3-fill text-lg"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-12 text-slate-400 font-bold text-sm bg-slate-50/50 rounded-xl">
+                            <i class="bi bi-globe2 text-5xl block mb-3 opacity-40"></i>
+                            هیچ زبانی یافت نشد.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
