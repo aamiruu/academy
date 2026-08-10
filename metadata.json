@@ -1,0 +1,6 @@
+{
+  "name": "Smart Online Class",
+  "description": "An online class simulator with real-time AI translation capabilities.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
